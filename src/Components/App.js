@@ -1,9 +1,11 @@
-import React from 'react';
+/** @format */
+
+import React from "react";
 const App = () => {
-    return (
-        <div>
-            Spotify App
-        </div>
-    )
-}
+  return (
+      <div>
+          spotify
+    </div>
+  );
+};
 export default App;
