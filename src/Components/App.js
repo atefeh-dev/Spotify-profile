@@ -1,10 +1,11 @@
 /** @format */
 
 import React from "react";
+import Profile from "../Components/Profile";
 const App = () => {
   return (
-      <div>
-          spotify
+    <div>
+      <Profile />
     </div>
   );
 };
