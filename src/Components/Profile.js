@@ -9,6 +9,9 @@ const Profile = () => {
   return (
     <div>
       <Nav />
+      <Router>
+        <User path="/" />
+      </Router>
     </div>
   );
 };

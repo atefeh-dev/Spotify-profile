@@ -25,11 +25,13 @@
   --sp-md: 30px;
   --sp-lg: 50px;
   --sp-xl: 100px;
-  --navWidth: 100px;
+  --navWidth: 110px;
   --navHeight: 70px;
   --transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1);
 }
-
+.body {
+  background-color: var(--darkGrey);
+}
 .Logo {
   color: var(--green);
   margin-top: 30px;
@@ -40,29 +42,42 @@
 .Logo svg {
   fill: var(--green);
   width: 50px !important;
+  transition: var(--transition);
+}
+.Logo svg:hover {
+  fill: var(--offGreen);
 }
 .Github svg {
   fill: var(--lightGrey);
-  width: 45px;
-  height: 45px;
-  margin-bottom: 30px;
+  width: 35px;
+  height: 35px;
+  margin-bottom: 40px;
 }
-
+.Github svg:hover {
+  fill: var(--blue);
+}
 .Menu svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 30px;
   margin-bottom: 7px;
   fill: var(--lightGrey);
 }
-.Menu {
+ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin: 0;
+  width: 100%;
 }
 li {
   color: var(--lightGrey);
   font-size: 11px;
+  width: 100%;
+  height: 100%;
+}
+body {
+  background-color: var(--black);
 }
 li a {
   display: block;
@@ -70,7 +85,24 @@ li a {
   border-left: 5px solid transparent;
   width: 100%;
   height: 100%;
+  transition: all 0.4s ease-out;
 }
+li:hover svg path,
+li:hover {
+  fill: var(--white);
+}
+li a:hover,
+:focus,
+.active {
+  background-color: var(--black);
+  border-left: 5px solid var(--offGreen);
+}
+li:hover,
+:focus,
+.active svg {
+  fill: var(--white);
+}
+
 .Menu div {
   color: var(--lightGrey);
 }
