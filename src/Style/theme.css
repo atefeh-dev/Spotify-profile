@@ -29,9 +29,7 @@
   --navHeight: 70px;
   --transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1);
 }
-.body {
-  background-color: var(--darkGrey);
-}
+
 .Logo {
   color: var(--green);
   margin-top: 30px;
@@ -61,6 +59,7 @@
   height: 30px;
   margin-bottom: 7px;
   fill: var(--lightGrey);
+  padding-top: 5px;
 }
 ul {
   list-style: none;
@@ -95,7 +94,7 @@ li a:hover,
 :focus,
 .active {
   background-color: var(--black);
-  border-left: 5px solid var(--offGreen);
+  border-left: 4px solid var(--offGreen);
 }
 li:hover,
 :focus,
@@ -162,5 +161,8 @@ li:hover,
   }
   * > {
     height: 100%;
+  }
+  .Menu svg {
+    padding-top: 2px;
   }
 }
