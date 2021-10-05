@@ -31,7 +31,7 @@ const Nav = () => {
       </div>
       <ul className="Menu">
         <li>
-          <NavLink to="/me">
+          <NavLink to="/info">
             <IconUser />
             <div>Profile</div>
           </NavLink>

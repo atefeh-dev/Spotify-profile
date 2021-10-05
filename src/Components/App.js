@@ -3,29 +3,53 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../Components/Profile";
 import LoginScreen from "../Components/LoginScreen";
+import ProtectedRoute from "../Components/ProtectedRoute";
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
-import ProtectedRoute from "../Components/ProtectedRoute";
 
 const App = () => {
-  console.log(localStorage.getItem("accessToken"));
-  let accessToken = localStorage.getItem("accessToken");
+  const [isAuthenticated, setIsAuthenticate] = useState(false);
+  const getReturnParamsFromSpotifyAuth = (hash) => {
+    const stringAfterHashtag = hash.substring(1);
+    const paramsInUrl = stringAfterHashtag.split("&");
+    const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
+      const [key, value] = currentValue.split("=");
+      accumulator[key] = value;
+      return accumulator;
+    }, {});
+    return paramsSplitUp;
+  };
+  useEffect(() => {
+    if (window.location.hash) {
+      const { access_token, expires_in, token_type } =
+        getReturnParamsFromSpotifyAuth(window.location.hash);
+      localStorage.clear();
+      localStorage.setItem("accessToken", access_token);
+      localStorage.setItem("tokenType", token_type);
+      localStorage.setItem("expiresIn", expires_in);
+      setIsAuthenticate(true);
+      console.log({ access_token });
+    }
+  });
+  if (isAuthenticated) return <Profile />;
+
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/login">
-            {accessToken ? <Profile /> : <LoginScreen />}
+            {isAuthenticated ? <Profile /> : <LoginScreen />}
           </Route>
           <Route path="/info">
-            <Profile />
+            {isAuthenticated ? <Profile /> : <LoginScreen />}
           </Route>
-          <Route path="/callback">
-            <Redirect to="info" />
+          <Route path="*">
+            <div style={{ color: "white" }}>404 not found</div>
           </Route>
         </Switch>
       </Router>

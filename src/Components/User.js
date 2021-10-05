@@ -8,8 +8,8 @@ const User = () => {
 
   const handleLogOutClick = () => {
     localStorage.clear();
-    console.log("cach cleared");
-    history.push("/login");
+    console.log("cachcleared");
+    window.location.reload();
   };
   return (
     <div className="user">

@@ -20,7 +20,7 @@ const Profile = () => {
       <Nav />
       <Router primary={false}>
         <ScrollToTop path="/">
-          <User path="/me" />
+          <User path="/info" />
           <RecentlyPlayed path="recent" />
           <TopArtists path="artists" />
           <TopTracks path="tracks" />
