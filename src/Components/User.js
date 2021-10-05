@@ -9,7 +9,7 @@ const User = () => {
   const handleLogOutClick = () => {
     localStorage.clear();
     console.log("cach cleared");
-    history.push("/info");
+    history.push("/login");
   };
   return (
     <div className="user">

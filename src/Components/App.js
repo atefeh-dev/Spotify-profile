@@ -12,27 +12,6 @@ import {
 import ProtectedRoute from "../Components/ProtectedRoute";
 
 const App = () => {
-  const getReturnParamsFromSpotifyAuth = (hash) => {
-    const stringAfterHashtag = hash.substring(1);
-    const paramsInUrl = stringAfterHashtag.split("&");
-    const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
-      const [key, value] = currentValue.split("=");
-      accumulator[key] = value;
-      return accumulator;
-    }, {});
-    return paramsSplitUp;
-  };
-  useEffect(() => {
-    if (window.location.hash) {
-      const { access_token, expires_in, token_type } =
-        getReturnParamsFromSpotifyAuth(window.location.hash);
-      localStorage.clear();
-      localStorage.setItem("accessToken", access_token);
-      localStorage.setItem("tokenType", token_type);
-      localStorage.setItem("expiresIn", expires_in);
-      console.log({ access_token });
-    }
-  });
   console.log(localStorage.getItem("accessToken"));
   let accessToken = localStorage.getItem("accessToken");
   return (
@@ -40,7 +19,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/login">
-            {accessToken ? <Profile /> : <LoginScreen />}
+            <LoginScreen />
           </Route>
           <Route path="/info">
             <Profile />
