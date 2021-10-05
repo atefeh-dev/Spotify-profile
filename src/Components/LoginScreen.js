@@ -1,8 +1,7 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import Profile from "./Profile";
+import React, { useEffect } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 
 const LoginScreen = () => {
   const CLIENT_ID = "28fd88bb75b9440c99b5949fccad86e5";
@@ -11,12 +10,25 @@ const LoginScreen = () => {
   const SPACE_DELIMITER = "%20";
   const SCOPES = ["user-read-currently-playing", "user-modify-playback-state"];
   const SCOPE_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
+  let history = useHistory();
 
   const HandleLoginClick = () => {
     window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI_AFTER_LOGIN}&scope=${SCOPE_URL_PARAM}&response_type=token&show_dialog=true`;
   };
 
-  const getReturnParamsFromSpotifyAuth = (hash) => {
+  return (
+    <div className="Login">
+      <h1>Spotify Profile</h1>
+
+      <a className="LoginButton" onClick={HandleLoginClick}>
+        Log in to Spotify
+      </a>
+    </div>
+  );
+};
+export default LoginScreen;
+/*
+const getReturnParamsFromSpotifyAuth = (hash) => {
     const stringAfterHashtag = hash.substring(1);
     const paramsInUrl = stringAfterHashtag.split("&");
     const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
@@ -37,16 +49,4 @@ const LoginScreen = () => {
       console.log({ access_token });
     }
   });
-  if (localStorage.getItem("accessToken")) return <Redirect to="/info" />;
-  else
-    return (
-      <div className="Login">
-        <h1>Spotify Profile</h1>
-
-        <a className="LoginButton" onClick={HandleLoginClick}>
-          Log in to Spotify
-        </a>
-      </div>
-    );
-};
-export default LoginScreen;
+*/

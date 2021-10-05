@@ -12,26 +12,41 @@ import {
 import ProtectedRoute from "../Components/ProtectedRoute";
 
 const App = () => {
-  const token = localStorage.getItem("accessToken");
-  console.log(token);
-
+  const getReturnParamsFromSpotifyAuth = (hash) => {
+    const stringAfterHashtag = hash.substring(1);
+    const paramsInUrl = stringAfterHashtag.split("&");
+    const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
+      const [key, value] = currentValue.split("=");
+      accumulator[key] = value;
+      return accumulator;
+    }, {});
+    return paramsSplitUp;
+  };
+  useEffect(() => {
+    if (window.location.hash) {
+      const { access_token, expires_in, token_type } =
+        getReturnParamsFromSpotifyAuth(window.location.hash);
+      localStorage.clear();
+      localStorage.setItem("accessToken", access_token);
+      localStorage.setItem("tokenType", token_type);
+      localStorage.setItem("expiresIn", expires_in);
+      console.log({ access_token });
+    }
+  });
+  console.log(localStorage.getItem("accessToken"));
+  let accessToken = localStorage.getItem("accessToken");
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/login" exact>
-            {token ? <Redirect to="/info" /> : <LoginScreen />}
+          <Route path="/login">
+            {accessToken ? <Profile /> : <LoginScreen />}
           </Route>
-          <ProtectedRoute
-            isAuthenticated={token}
-            path="/info"
-            component={Profile}
-          />
-          <Route exact path="/">
-            <Redirect exact from="*" to="info" />
+          <Route path="/info">
+            <Profile />
           </Route>
-          <Route path="*">
-            <Redirect from="*" to="info" />
+          <Route path="/callback">
+            <Redirect to="info" />
           </Route>
         </Switch>
       </Router>
@@ -40,7 +55,16 @@ const App = () => {
 };
 export default App;
 
-/*  accessToken ? <Profile /> : <LoginScreen />;*/
+/* 
+
+
+ <Router>
+        <Switch>
+          <Route path="/login" exact>
+          </Route>
+        </Switch>
+      </Router>
+ accessToken ? <Profile /> : <LoginScreen />;*/
 /* return (
     <div>
       <BrowserRouter>
@@ -60,6 +84,18 @@ export default App;
         </Switch>
       </BrowserRouter>
     </div>
-           
+    <ProtectedRoute
+            isAuthenticated={token}
+            path="/info"
+            component={Profile}
+          />
+          <Route exact path="/">
+            <Redirect exact from="*" to="info" />
+          </Route>
+          <Route path="*">
+            <Redirect from="*" to="info" />
+          </Route>
+                 {accessToken ? <Profile /> : <LoginScreen />}
+
   );
 };*/

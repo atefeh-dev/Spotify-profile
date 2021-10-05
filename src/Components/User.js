@@ -1,13 +1,15 @@
 /** @format */
 
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const User = () => {
+  let history = useHistory();
+
   const handleLogOutClick = () => {
     localStorage.clear();
-    window.location.reload();
-    <Redirect to="/login" />;
+    console.log("cach cleared");
+    history.push("/info");
   };
   return (
     <div className="user">
