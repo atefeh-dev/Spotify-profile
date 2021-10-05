@@ -19,7 +19,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/login">
-            <LoginScreen />
+            {accessToken ? <Profile /> : <LoginScreen />}
           </Route>
           <Route path="/info">
             <Profile />
