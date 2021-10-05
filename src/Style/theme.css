@@ -18,7 +18,7 @@
   --fz-md: 20px;
   --fz-lg: 24px;
   --fz-xl: 28px;
-  --fz-xxl: 32px;
+  --fz-xxl: 34px;
   --sp-base: 20px;
   --sp-xs: 5px;
   --sp-sm: 10px;
@@ -165,4 +165,40 @@ li:hover,
   .Menu svg {
     padding-top: 2px;
   }
+}
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.Login h1 {
+  font-size: var(--fz-xxl);
+  color: var(--white);
+  font-weight: bolder;
+}
+.LoginButton {
+  display: inline-block;
+  background-color: var(--green);
+  color: var(--white);
+  border-radius: 30px;
+  padding: 22px 35px;
+  margin: 20px 0 70px;
+  min-width: 160px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.LoginButton:hover {
+  background-color: var(--offGreen);
+  cursor: pointer;
+}
+.user {
+  color: white;
+  text-align: center;
 }

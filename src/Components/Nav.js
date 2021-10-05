@@ -25,13 +25,13 @@ const Nav = () => {
   return (
     <div className="navContainer">
       <div className="Logo">
-        <Link to="/">
+        <Link to="/info">
           <IconSpotify />
         </Link>
       </div>
       <ul className="Menu">
         <li>
-          <NavLink to="/">
+          <NavLink to="/me">
             <IconUser />
             <div>Profile</div>
           </NavLink>
