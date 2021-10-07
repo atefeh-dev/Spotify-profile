@@ -32,29 +32,32 @@ const App = () => {
       localStorage.setItem("accessToken", access_token);
       localStorage.setItem("tokenType", token_type);
       localStorage.setItem("expiresIn", expires_in);
+      localStorage.setItem("auth", true);
       setIsAuthenticate(true);
-      console.log({ access_token });
+      // console.log({ access_token });
     }
   });
-  if (isAuthenticated) return <Profile />;
 
-  return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/login">
-            {isAuthenticated ? <Profile /> : <LoginScreen />}
-          </Route>
-          <Route path="/info">
-            {isAuthenticated ? <Profile /> : <LoginScreen />}
-          </Route>
-          <Route path="*">
-            <div style={{ color: "white" }}>404 not found</div>
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
+  let auth = localStorage.getItem("auth");
+  if (auth || isAuthenticated) {
+    console.log(localStorage.getItem("accessToken"));
+    return <Profile />;
+  } else {
+    console.log("no");
+    return (
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path="/login">{auth ? <Profile /> : <LoginScreen />}</Route>
+            <Route path="/info">{auth ? <Profile /> : <LoginScreen />}</Route>
+            <Route path="*">
+              <div style={{ color: "white" }}>404 not found</div>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 };
 export default App;
 

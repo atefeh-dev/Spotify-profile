@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "../Components/Nav";
 import { Router } from "@reach/router";
 import User from "../Components/User";
@@ -13,8 +13,14 @@ import Recommendations from "../Components/Recommendations";
 import Track from "../Components/Track";
 import Artist from "../Components/Artist";
 import ScrollToTop from "../Components/ScrollToTop";
+import { useHistory } from "react-router-dom";
+import { navigate } from "@reach/router";
 
 const Profile = () => {
+  useEffect(() => {
+    navigate("/info");
+  }, []);
+
   return (
     <div>
       <Nav />
