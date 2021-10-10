@@ -11,7 +11,7 @@ const LoginScreen = () => {
   const SCOPE_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
   const HandleLoginClick = () => {
-    window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI_AFTER_LOGIN}&scope=${SCOPE_URL_PARAM}&response_type=token&show_dialog=true`;
+    window.location = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI_AFTER_LOGIN}&scope=${SCOPE_URL_PARAM}&response_type=code&show_dialog=true`;
   };
 
   return (

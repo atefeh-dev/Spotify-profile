@@ -1,14 +1,12 @@
 /** @format */
 
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { refreshAccessToken } from "../Apis/Spotify";
 
 const User = () => {
-  let history = useHistory();
-
   const handleLogOutClick = () => {
     localStorage.clear();
-    console.log("cachcleared");
+    console.log("cache cleared");
     window.location.reload();
   };
   return (

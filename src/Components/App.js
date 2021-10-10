@@ -3,65 +3,42 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../Components/Profile";
 import LoginScreen from "../Components/LoginScreen";
-import ProtectedRoute from "../Components/ProtectedRoute";
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { token } from "../Apis/Spotify";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticate] = useState(false);
-  const getReturnParamsFromSpotifyAuth = (hash) => {
-    const stringAfterHashtag = hash.substring(1);
-    const paramsInUrl = stringAfterHashtag.split("&");
-    const paramsSplitUp = paramsInUrl.reduce((accumulator, currentValue) => {
-      const [key, value] = currentValue.split("=");
-      accumulator[key] = value;
-      return accumulator;
-    }, {});
-    return paramsSplitUp;
-  };
-  useEffect(() => {
-    if (window.location.hash) {
-      const { access_token, expires_in, token_type } =
-        getReturnParamsFromSpotifyAuth(window.location.hash);
-      localStorage.clear();
-      localStorage.setItem("accessToken", access_token);
-      localStorage.setItem("tokenType", token_type);
-      localStorage.setItem("expiresIn", expires_in);
-      localStorage.setItem("auth", true);
-      setIsAuthenticate(true);
-      // console.log({ access_token });
-    }
-  });
+  const [accessToken, setAccessToken] = useState(null);
 
-  let auth = localStorage.getItem("auth");
-  if (auth || isAuthenticated) {
-    console.log(localStorage.getItem("accessToken"));
-    return <Profile />;
-  } else {
-    console.log("no");
-    return (
-      <div className="App">
-        <Router>
-          <Switch>
-            <Route path="/login">{auth ? <Profile /> : <LoginScreen />}</Route>
-            <Route path="/info">{auth ? <Profile /> : <LoginScreen />}</Route>
-            <Route path="*">
-              <div style={{ color: "white" }}>404 not found</div>
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-    );
-  }
+  useEffect(() => {
+    token.then((value) => setAccessToken(value));
+  }, []);
+  return (
+    <div className="App">{accessToken ? <Profile /> : <LoginScreen />}</div>
+  );
 };
 export default App;
 
-/* 
+/*return (
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <LoginScreen />
+          </Route>
+          <Route path="/info">
+            <LoginScreen />
+          </Route>
+          <Route path="*">
+            <div style={{ color: "white" }}>404 not found</div>
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
+};
+export default App;
+
+
 
 
  <Router>
@@ -70,8 +47,8 @@ export default App;
           </Route>
         </Switch>
       </Router>
- accessToken ? <Profile /> : <LoginScreen />;*/
-/* return (
+ accessToken ? <Profile /> : <LoginScreen />;
+ return (
     <div>
       <BrowserRouter>
         <Switch>
@@ -101,7 +78,4 @@ export default App;
           <Route path="*">
             <Redirect from="*" to="info" />
           </Route>
-                 {accessToken ? <Profile /> : <LoginScreen />}
-
-  );
-};*/
+                 {accessToken ? <Profile /> : <LoginScreen />} */
