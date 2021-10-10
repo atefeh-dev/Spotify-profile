@@ -3,7 +3,7 @@
 import axios from "axios";
 import qs from "qs";
 
-// get token from redirect uri if we need 
+// get token from redirect uri if we need
 const getReturnParamsFromSpotifyAuth = (hash) => {
   const stringAfterHashtag = hash.substring(1);
   const paramsInUrl = stringAfterHashtag.split("&");
@@ -15,7 +15,7 @@ const getReturnParamsFromSpotifyAuth = (hash) => {
   return paramsSplitUp;
 };
 
- // CONFIG 
+// CONFIG
 
 const CLIENT_ID = "28fd88bb75b9440c99b5949fccad86e5";
 const CLIENT_SECRET = "29d0deb1ef0a4cb5a3ac4ba1d6a1bc9e";
@@ -98,7 +98,86 @@ export const getAccessToken = async () => {
     }
   }
 };
-
 export const token = getAccessToken();
 
 //// API CALLS ***************************************************************************************
+export const logout = () => {
+  localStorage.clear();
+  window.location.reload();
+};
+
+const headers = {
+  Authorization: `Bearer ${token}`,
+  "Content-Type": "application/json",
+};
+
+/**
+ * Get Current User's Profile
+ * https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+ */
+
+export const getUser = () => {
+  console.log(
+    token.then((value) => {
+      return value;
+    })
+  );
+
+  axios.get("https://api.spotify.com/v1/me", { headers });
+};
+
+/**
+ * Get User's Followed Artists
+ * https://developer.spotify.com/documentation/web-api/reference/follow/get-followed/
+ */
+export const getFollowing = () =>
+  axios.get("https://api.spotify.com/v1/me/following?type=artist", { headers });
+
+/**
+ * Get a List of Current User's Playlists
+ * https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/
+ */
+
+export const getPlaylists = () =>
+  axios.get("https://api.spotify.com/v1/me/playlists", { headers });
+
+/**
+ * Get a User's Top Artists
+ * https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
+ */
+export const getTopArtistsLong = () =>
+  axios.get(
+    "https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term",
+    { headers }
+  );
+
+/**
+ * Get a User's Top Tracks
+ * https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/
+ */
+export const getTopTracksLong = () =>
+  axios.get(
+    "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term",
+    { headers }
+  );
+
+export const getUserInfo = () =>
+  axios
+    .all([
+      getUser(),
+      getFollowing(),
+      getPlaylists(),
+      getTopArtistsLong(),
+      getTopTracksLong(),
+    ])
+    .then(
+      axios.spread(
+        (user, followedArtists, playlists, topArtists, topTracks) => ({
+          user: user.data,
+          followedArtists: followedArtists.data,
+          playlists: playlists.data,
+          topArtists: topArtists.data,
+          topTracks: topTracks.data,
+        })
+      )
+    );
