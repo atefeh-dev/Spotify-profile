@@ -54,9 +54,32 @@ const getReturnCodeFromAuth = () => {
   return code;
 };
 
-// Get access token off of query params (called on application init)
+// Get access token off of query params (called on application init base code and Scope )
 
-export const getAccessToken = async () => {
+export const getInitialAccessToken = async () => {
+  const data = {
+    grant_type: "authorization_code",
+    redirect_uri: "http://localhost:3000/callback",
+    code: getReturnCodeFromAuth(),
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+  };
+
+  try {
+    const response = await axios.post(TOKEN_URL, qs.stringify(data));
+    localStorage.clear();
+    setLocalAccessToken(response.data.access_token);
+    setLocalRefreshToken(response.data.refresh_token);
+    setTokenTimestamp();
+    return response.data.access_token;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// check accessToken exist or need  to update
+
+export const getAccessToken = () => {
   const localAccessToken = getLocalAccessToken();
   if (localAccessToken) {
     if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
@@ -64,30 +87,11 @@ export const getAccessToken = async () => {
       return refreshAccessToken();
     }
     return localAccessToken;
-  } else {
-    const data = {
-      grant_type: "authorization_code",
-      redirect_uri: "http://localhost:3000/callback",
-      code: getReturnCodeFromAuth(),
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-    };
-
-    try {
-      const response = await axios.post(TOKEN_URL, qs.stringify(data));
-      console.log(response);
-      localStorage.clear();
-      setLocalAccessToken(response.data.access_token);
-      setLocalRefreshToken(response.data.refresh_token);
-      setTokenTimestamp();
-      return await response.data.access_token;
-    } catch (error) {
-      console.log(error);
-    }
   }
 };
 
 //// API CALLS ***************************************************************************************
+
 export const logout = () => {
   localStorage.clear();
   window.location.reload();
