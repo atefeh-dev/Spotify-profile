@@ -1,43 +1,43 @@
 /** @format */
 
-import axios from 'axios';
-import qs from 'qs';
+import axios from "axios";
+import qs from "qs";
 
 // CONFIG
 
-const CLIENT_ID = '28fd88bb75b9440c99b5949fccad86e5';
-const CLIENT_SECRET = '29d0deb1ef0a4cb5a3ac4ba1d6a1bc9e';
-const TOKEN_URL = 'https://accounts.spotify.com/api/token';
+const CLIENT_ID = "28fd88bb75b9440c99b5949fccad86e5";
+const CLIENT_SECRET = "29d0deb1ef0a4cb5a3ac4ba1d6a1bc9e";
+const TOKEN_URL = "https://accounts.spotify.com/api/token";
 
 const EXPIRATION_TIME = 3600 * 1000; // 3600 secondes * 1000 = 1 hour in millisecond's
 const setTokenTimestamp = () =>
-  localStorage.setItem('spotify_token_timestamp', Date.now());
+  localStorage.setItem("spotify_token_timestamp", Date.now());
 
 const setLocalAccessToken = (token) => {
   setTokenTimestamp();
-  localStorage.setItem('spotify_access_token', token);
+  localStorage.setItem("spotify_access_token", token);
 };
 
 const setLocalRefreshToken = (token) =>
-  localStorage.setItem('spotify_refresh_token', token);
-const getTokenTimestamp = () => localStorage.getItem('spotify_token_timestamp');
-const getLocalAccessToken = () => localStorage.getItem('spotify_access_token');
+  localStorage.setItem("spotify_refresh_token", token);
+const getTokenTimestamp = () => localStorage.getItem("spotify_token_timestamp");
+const getLocalAccessToken = () => localStorage.getItem("spotify_access_token");
 const getLocalRefreshToken = () =>
-  localStorage.getItem('spotify_refresh_token');
+  localStorage.getItem("spotify_refresh_token");
 
 //Refresh the token
 
 export const refreshAccessToken = async () => {
   try {
     const data = {
-      grant_type: 'refresh_token',
+      grant_type: "refresh_token",
       refresh_token: getLocalRefreshToken(),
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
     };
     const response = await axios.post(TOKEN_URL, qs.stringify(data));
     setLocalAccessToken(response.data.access_token);
-    console.log('refresh');
+    console.log("refresh");
     return response.data.access_token;
   } catch (e) {
     console.error(e);
@@ -49,7 +49,7 @@ const getReturnCodeFromAuth = () => {
   const queryString = window.location.search;
   if (queryString.length > 0) {
     const urlParams = new URLSearchParams(queryString);
-    code = urlParams.get('code');
+    code = urlParams.get("code");
   }
   return code;
 };
@@ -60,14 +60,14 @@ export const getAccessToken = async () => {
   const localAccessToken = getLocalAccessToken();
   if (localAccessToken) {
     if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
-      console.log('Access token has expired, refreshing...');
+      console.log("Access token has expired, refreshing...");
       return refreshAccessToken();
     }
     return localAccessToken;
   } else {
     const data = {
-      grant_type: 'authorization_code',
-      redirect_uri: 'http://localhost:3000/callback',
+      grant_type: "authorization_code",
+      redirect_uri: "http://localhost:3000/callback",
       code: getReturnCodeFromAuth(),
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
@@ -97,7 +97,7 @@ const getHeaders = async () => {
   const token = await getAccessToken();
   return {
     Authorization: `Bearer ${token}`,
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
 };
 
@@ -107,14 +107,14 @@ const getHeaders = async () => {
  */
 
 export const getUser = async () =>
-  axios.get('https://api.spotify.com/v1/me', { headers: await getHeaders() });
+  axios.get("https://api.spotify.com/v1/me", { headers: await getHeaders() });
 
 /**
  * Get User's Followed Artists
  * https://developer.spotify.com/documentation/web-api/reference/follow/get-followed/
  */
 export const getFollowing = async () =>
-  axios.get('https://api.spotify.com/v1/me/following?type=artist', {
+  axios.get("https://api.spotify.com/v1/me/following?type=artist", {
     headers: await getHeaders(),
   });
 
@@ -124,7 +124,7 @@ export const getFollowing = async () =>
  */
 
 export const getPlaylists = async () =>
-  axios.get('https://api.spotify.com/v1/me/playlists', {
+  axios.get("https://api.spotify.com/v1/me/playlists", {
     headers: await getHeaders(),
   });
 
@@ -134,7 +134,7 @@ export const getPlaylists = async () =>
  */
 export const getTopArtistsLong = async () =>
   axios.get(
-    'https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term',
+    "https://api.spotify.com/v1/me/top/artists?limit=50&time_range=long_term",
     { headers: await getHeaders() }
   );
 
@@ -144,7 +144,7 @@ export const getTopArtistsLong = async () =>
  */
 export const getTopTracksLong = async () =>
   axios.get(
-    'https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term',
+    "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=long_term",
     { headers: await getHeaders() }
   );
 

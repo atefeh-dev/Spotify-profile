@@ -7,7 +7,20 @@ const LoginScreen = () => {
   const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
   const REDIRECT_URI_AFTER_LOGIN = "http://localhost:3000/callback";
   const SPACE_DELIMITER = "%20";
-  const SCOPES = ["user-read-currently-playing", "user-modify-playback-state"];
+  const SCOPES = [
+    "user-read-currently-playing",
+    "user-modify-playback-state",
+    "user-follow-read",
+    "playlist-read-private",
+    "user-read-private",
+    "user-read-email",
+    "user-read-recently-played",
+    "user-top-read",
+    "user-follow-modify",
+    "playlist-read-collaborative",
+    " playlist-modify-public",
+  ];
+
   const SCOPE_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
   const HandleLoginClick = () => {
