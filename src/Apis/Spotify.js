@@ -43,6 +43,7 @@ export const refreshAccessToken = async () => {
     console.error(e);
   }
 };
+// read response code from uri
 
 const getReturnCodeFromAuth = () => {
   let code = null;
