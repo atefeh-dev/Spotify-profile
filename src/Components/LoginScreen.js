@@ -1,11 +1,11 @@
 /** @format */
 
 import React from "react";
-import { windowAuthUri } from "../Apis/Spotify";
+import { spotifyAuthUri } from "../Apis/Spotify";
 
 const LoginScreen = () => {
   const HandleLoginClick = () => {
-    window.location = windowAuthUri;
+    window.location = spotifyAuthUri;
   };
 
   return (
