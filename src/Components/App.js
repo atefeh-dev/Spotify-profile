@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../Components/Profile";
 import LoginScreen from "../Components/LoginScreen";
-import { getInitialAccessToken } from "../Apis/Spotify";
+import { getInitialAccessToken, getLocalAccessToken } from "../Apis/Spotify";
 
 const App = () => {
   const [accessToken, setAccessToken] = useState(null);

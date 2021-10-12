@@ -44,7 +44,8 @@ const setLocalAccessToken = (token) => {
 const setLocalRefreshToken = (token) =>
   localStorage.setItem("spotify_refresh_token", token);
 const getTokenTimestamp = () => localStorage.getItem("spotify_token_timestamp");
-const getLocalAccessToken = () => localStorage.getItem("spotify_access_token");
+export const getLocalAccessToken = () =>
+  localStorage.getItem("spotify_access_token");
 const getLocalRefreshToken = () =>
   localStorage.getItem("spotify_refresh_token");
 
