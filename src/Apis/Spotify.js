@@ -27,7 +27,7 @@ const SCOPES = [
 ];
 const SCOPE_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
 
-//  url for Authenticate by Spotify
+//  url for Authenticate by Spotify called on login Screen
 
 export const windowAuthUri = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI_AFTER_LOGIN}&scope=${SCOPE_URL_PARAM}&response_type=code&show_dialog=true`;
 
