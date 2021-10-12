@@ -8,8 +8,31 @@ import qs from "qs";
 const CLIENT_ID = "28fd88bb75b9440c99b5949fccad86e5";
 const CLIENT_SECRET = "29d0deb1ef0a4cb5a3ac4ba1d6a1bc9e";
 const TOKEN_URL = "https://accounts.spotify.com/api/token";
-
+const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize";
+const REDIRECT_URI_AFTER_LOGIN = "http://localhost:3000/callback";
 const EXPIRATION_TIME = 3600 * 1000; // 3600 secondes * 1000 = 1 hour in millisecond's
+const SPACE_DELIMITER = "%20";
+const SCOPES = [
+  "user-read-currently-playing",
+  "user-modify-playback-state",
+  "user-follow-read",
+  "playlist-read-private",
+  "user-read-private",
+  "user-read-email",
+  "user-read-recently-played",
+  "user-top-read",
+  "user-follow-modify",
+  "playlist-read-collaborative",
+  " playlist-modify-public",
+];
+const SCOPE_URL_PARAM = SCOPES.join(SPACE_DELIMITER);
+
+//  url for Authenticate by Spotify
+
+export const windowAuthUri = `${SPOTIFY_AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI_AFTER_LOGIN}&scope=${SCOPE_URL_PARAM}&response_type=code&show_dialog=true`;
+
+// get and set from local storage
+
 const setTokenTimestamp = () =>
   localStorage.setItem("spotify_token_timestamp", Date.now());
 
@@ -43,6 +66,7 @@ export const refreshAccessToken = async () => {
     console.error(e);
   }
 };
+
 // read response code from uri
 
 const getReturnCodeFromAuth = () => {
