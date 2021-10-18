@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../Components/Profile";
 import LoginScreen from "../Components/LoginScreen";
-import { getInitialAccessToken, getLocalAccessToken } from "../Apis/Spotify";
+import {
+  getAccessToken,
+  getInitialAccessToken,
+  getLocalAccessToken,
+} from "../Apis/Spotify";
 
 const App = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -11,10 +15,12 @@ const App = () => {
   useEffect(() => {
     getInitialAccessToken().then((token) => setAccessToken(token));
   }, []);
-  console.log(accessToken);
+  const validated = getAccessToken();
 
   return (
-    <div className="App">{accessToken ? <Profile /> : <LoginScreen />}</div>
+    <div className="App">
+      {accessToken || validated ? <Profile /> : <LoginScreen />}
+    </div>
   );
 };
 export default App;

@@ -26,9 +26,15 @@ const User = () => {
     catchErrors(fetchData());
   }, []);
   return (
-    <div className="user">
-      <button onClick={handleLogOutClick}>logout</button>
-    </div>
+    <React.Fragment>
+      <div className="Main">
+        <div className="Header">
+          <button className="LogoutButton" onClick={handleLogOutClick}>
+            logout
+          </button>
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 export default User;
