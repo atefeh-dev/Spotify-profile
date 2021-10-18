@@ -262,3 +262,22 @@ li:hover,
   flex-direction: column;
   position: relative;
 }
+.Avatar {
+  width: 150px;
+  height: 150px;
+  border: var(--white);
+}
+.Avatar img {
+  border-radius: 100%;
+  color: var(--white);
+}
+.Avatar svg {
+  fill: var(--white);
+  color: #ffffff;
+}
+
+.NoAvatar {
+  border: 2px solid var(--white);
+  border-radius: 100%;
+  padding: var(--sp-md);
+}

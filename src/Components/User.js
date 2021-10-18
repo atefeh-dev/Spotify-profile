@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserInfo, logout } from "../Apis/Spotify";
 import { catchErrors } from "../utils";
+import { IconUser, IconInfo } from "../Icons";
 
 const User = () => {
   const [user, setUser] = useState(null);
@@ -27,13 +28,26 @@ const User = () => {
   }, []);
   return (
     <React.Fragment>
-      <div className="Main">
-        <div className="Header">
-          <button className="LogoutButton" onClick={handleLogOutClick}>
-            logout
-          </button>
+      {user ? (
+        <div className="Main">
+          <div className="Header">
+            <div className="Avatar">
+              {user.images.length > 0 ? (
+                <img src={user.images[0].url} alt="avatar" />
+              ) : (
+                <div className="NoAvatar">
+                  <IconUser />
+                </div>
+              )}
+            </div>
+            <button className="LogoutButton" onClick={handleLogOutClick}>
+              logout
+            </button>
+          </div>
         </div>
-      </div>
+      ) : (
+        <div>loading ....</div>
+      )}
     </React.Fragment>
   );
 };
