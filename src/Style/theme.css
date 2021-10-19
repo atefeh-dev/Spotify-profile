@@ -29,6 +29,7 @@
   --navHeight: 70px;
   --transition: all 0.25s cubic-bezier(0.3, 0, 0.4, 1);
 }
+
 .App {
   height: 100%;
   min-height: 100vh;
@@ -286,4 +287,51 @@ li:hover,
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+.Name {
+  font-size: 50px;
+  font-weight: 700;
+  margin: 20px 0 0;
+  color: var(--white);
+  text-decoration: none;
+}
+.Name:hover {
+  color: var(--offGreen);
+}
+.UserName {
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .Name {
+    font-size: 40px;
+  }
+}
+@media (max-width: 480px) {
+  .Name {
+    font-size: 6vw;
+  }
+}
+.Stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+  margin-top: var(--sp-md);
+}
+.Stat {
+  text-align: center;
+}
+.Number {
+  color: var(--green);
+  font-weight: 700;
+  font-size: var(--fz-md);
+}
+.NumLabel {
+  color: var(--lightGrey);
+  font-size: var(--fz-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: var(--sp-xs);
+}
+a {
+  text-decoration: none;
 }
