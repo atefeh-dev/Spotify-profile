@@ -281,3 +281,9 @@ li:hover,
   border-radius: 100%;
   padding: var(--sp-md);
 }
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}

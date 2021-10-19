@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getUserInfo, logout } from "../Apis/Spotify";
 import { catchErrors } from "../utils";
 import { IconUser, IconInfo } from "../Icons";
+import Loader from "react-loader-spinner";
 
 const User = () => {
   const [user, setUser] = useState(null);
@@ -40,13 +41,28 @@ const User = () => {
                 </div>
               )}
             </div>
+            <div
+              className="diUserName"
+              href={user.external_urls.spotify}
+              target="_blank"
+              rel="noopener noreferrer">
+              <div className="Name">{user.display_name}</div>
+            </div>
             <button className="LogoutButton" onClick={handleLogOutClick}>
               logout
             </button>
           </div>
         </div>
       ) : (
-        <div>loading ....</div>
+        <div className="box mx-auto">
+          <Loader
+            type="Audio"
+            color="#404040"
+            height={90}
+            width={90}
+            timeout={3000} //3 secs
+          />
+        </div>
       )}
     </React.Fragment>
   );
