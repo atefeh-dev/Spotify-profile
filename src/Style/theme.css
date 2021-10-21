@@ -230,9 +230,11 @@ li:hover,
   color: var(--black);
 }
 .Main {
-  margin-left: var(--navWidth);
+  margin: 0 auto;
+  margin-left: 218px;
   padding: 80px;
   height: 800px;
+  max-width: 1250px;
 }
 @media (max-width: 1200px) {
   .Main {
@@ -305,6 +307,10 @@ li:hover,
   .Name {
     font-size: 40px;
   }
+  .Preview {
+    display: block;
+    margin-top: 70px;
+  }
 }
 @media (max-width: 480px) {
   .Name {
@@ -334,4 +340,45 @@ li:hover,
 }
 a {
   text-decoration: none;
+}
+.Preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 70px;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.TracklistHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.TracklistHeading h3 {
+  display: inline-block;
+  margin: 0;
+  font-weight: 900;
+  color: var(--white);
+}
+
+.MoreButton {
+  display: inline-block;
+  color: var(--white);
+  font-weight: 700;
+  font-size: var(--fz-xs);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--white);
+  border-radius: 50px;
+  padding: 11px 24px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+  white-space: nowrap;
+}
+.MoreButton:hover {
+  color: var(--black);
+  background: var(--white);
+  outline: 0;
 }

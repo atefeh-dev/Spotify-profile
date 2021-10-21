@@ -77,6 +77,24 @@ const User = () => {
               logout
             </button>
           </div>
+          <div className="Preview">
+            <div className="Tracklist">
+              <div className="TracklistHeading">
+                <h3>Top Artists of All Time</h3>
+                <div className="MoreButton" to="/artists">
+                  See More
+                </div>
+              </div>
+            </div>
+            <div className="Tracklist">
+              <div className=" TracklistHeading">
+                <h3>Top Tracks of All Time</h3>
+                <div className=" MoreButton" to="/tracks">
+                  See More
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="box mx-auto">
